@@ -1,7 +1,7 @@
-submitter-tools
+gca-tools
 ===============
 
-Tools to aid with the submission of data to a GCA DCC 
+Tools to aid with the interaction with a GCA DCC, such as submission of data or analysis.
 
 # Tools
 
