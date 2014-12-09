@@ -16,5 +16,5 @@ Please read your manifest before you send it to EMBL-EBI to confirm that it
 contains only the files you wish to send to us.
 
 This script is a wrapper for the following unix command. You may prefer to copy
-and paste this command as an alternative to running this bash script:
+and paste this command as an alternative to running this executable:
   find -type f -printf '%p\t%s\t' -execdir sh -c 'md5sum {} | sed s/\ .*//'  \;
