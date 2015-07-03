@@ -7,6 +7,14 @@ This script generates a file manifest for files that you want to submit to GCA
 at EMBL-EBI. The script takes a list of directories or files to add to the
 manifest. The default directory is your current working directory.
 
+The file format is tab delimited and the columns are
+
+file path file size in bytes  md5sum
+
+e.g
+ftp/release/20130502/supporting/low_complexity_regions/README_lcrs_20140225     701     81763724ad213a7d956b457171f932d1
+ftp/release/20130502/supporting/low_complexity_regions/hs37d5-LCRs.20140224.bed.gz      9889621 74e2e80df1ca0c6d36fabaa053a5f95e
+
 We recommend you gather the files you want to submit into a single directory,
 and then write the output from this script to a file so that you can send it to
 GCA at EMBL-EBI.
