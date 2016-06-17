@@ -5,17 +5,15 @@ use warnings;
 
 use Getopt::Long;
 use ReseqTrack::EBiSC::IMS;
-use ReseqTrack::EBiSC::XMLUtils qw(dump_xml);
 
-my ($IMS_user, $IMS_pass);
-my $outfile = '/nfs/production/reseq-info/work/rseqpipe/literature_mining_IDs/ebisc.tsv';
+my ($IMS_user, $IMS_pass, $outfile);
 
 GetOptions("user=s" => \$IMS_user,
     "pass=s" => \$IMS_pass,
     "outfile=s" => \$outfile,
 );
 
-die "missing credentials" if !$IMS_user || !$IMS_pass;
+die "missing credentials" if !$IMS_user || !$IMS_pass || $outfile;
 
 my $IMS = ReseqTrack::EBiSC::IMS->new(
   user => $IMS_user,
