@@ -13,7 +13,7 @@ GetOptions("user=s" => \$hPSCreg_user,
     "outfile=s" => \$outfile,
 );
 
-die "missing credentials" if !$hPSCreg_user || !$hPSCreg_pass || $outfile;
+die "missing credentials" if !$hPSCreg_user || !$hPSCreg_pass || !$outfile;
 
 my $hPSCreg = ReseqTrack::EBiSC::hESCreg->new(
   user => $hPSCreg_user,

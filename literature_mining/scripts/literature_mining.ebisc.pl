@@ -13,7 +13,7 @@ GetOptions("user=s" => \$IMS_user,
     "outfile=s" => \$outfile,
 );
 
-die "missing credentials" if !$IMS_user || !$IMS_pass || $outfile;
+die "missing credentials" if !$IMS_user || !$IMS_pass || !$outfile;
 
 my $IMS = ReseqTrack::EBiSC::IMS->new(
   user => $IMS_user,
