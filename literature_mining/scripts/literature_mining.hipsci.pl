@@ -9,34 +9,29 @@ use Data::Compare;
 use Data::Dumper;
 use Getopt::Long;
 
-my @es_host;
+my $es_host;
 
 &GetOptions(
-  'es_host=s' =>\@es_host,
+  'es_host=s' =>\$es_host,
 );
 
-my %elasticsearch;
-foreach my $es_host (@es_host){
-  $elasticsearch{$es_host} = ReseqTrack::Tools::HipSci::ElasticsearchClient->new(host => $es_host);
-}
+my $elasticsearchserver = ReseqTrack::Tools::HipSci::ElasticsearchClient->new(host => $es_host);
 
-while( my( $host, $elasticsearchserver ) = each %elasticsearch ){
-  my $cell_updated = 0;
-  my $cell_uptodate = 0;
+my $cell_updated = 0;
+my $cell_uptodate = 0;
 
-  my $scroll = $elasticsearchserver->call('scroll_helper',
-    index       => 'hipsci',
-    type        => 'cellLine',
-    search_type => 'scan',
-    size        => 500
-  );
+my $scroll = $elasticsearchserver->call('scroll_helper',
+  index       => 'hipsci',
+  type        => 'cellLine',
+  search_type => 'scan',
+  size        => 500
+);
 
-  CELL_LINE:
-  while ( my $doc = $scroll->next ) {
-    if (defined $$doc{'_source'}{ebiscName}){
-      print $$doc{'_source'}{name}, "\t", (split /-/,$$doc{'_source'}{name})[-1], '###', $$doc{'_source'}{ebiscName}, "\t", $$doc{'_source'}{bioSamplesAccession}, "\n";
-    }else{
-      print $$doc{'_source'}{name}, "\t", (split /-/,$$doc{'_source'}{name})[-1], "\t", $$doc{'_source'}{bioSamplesAccession}, "\n";
-    }
+CELL_LINE:
+while ( my $doc = $scroll->next ) {
+  if (defined $$doc{'_source'}{ebiscName}){
+    print $$doc{'_source'}{name}, "\t", (split /-/,$$doc{'_source'}{name})[-1], '###', $$doc{'_source'}{ebiscName}, "\t", $$doc{'_source'}{bioSamplesAccession}, "\n";
+  }else{
+    print $$doc{'_source'}{name}, "\t", (split /-/,$$doc{'_source'}{name})[-1], "\t", $$doc{'_source'}{bioSamplesAccession}, "\n";
   }
 }
