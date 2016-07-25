@@ -23,6 +23,10 @@ my $IMS = ReseqTrack::EBiSC::IMS->new(
 my @outlines;
 open(my $fh, '>', $outfile) or die "Could not open file '$outfile' $!";
 foreach my $line (@{$IMS->find_lines->{objects}}) {
-  print $fh $line->{name}, "\t", join('###', @{$line->{alternative_names}}), "\t", $line->{biosamples_id}, "\n";
+  if (defined $$line{validation_status}){
+    if ($$line{validation_status} eq 'Validated, visible' or $$line{validation_status} eq 'Validated, not visible'){
+        print $fh $line->{name}, "\t", join('###', @{$line->{alternative_names}}), "\t", $line->{biosamples_id}, "\n";
+    }
+  }
 }
 close($fh);
