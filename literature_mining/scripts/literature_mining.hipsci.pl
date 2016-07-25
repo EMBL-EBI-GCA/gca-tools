@@ -8,7 +8,7 @@ use List::Util qw();
 use Data::Compare;
 use Getopt::Long;
 
-my $es_host;
+my $es_host = 'ves-pg-e3:9200';
 
 &GetOptions(
   'es_host=s' =>\$es_host,
