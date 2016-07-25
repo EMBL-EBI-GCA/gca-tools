@@ -23,7 +23,6 @@ my $scroll = $elasticsearchserver->call('scroll_helper',
   size        => 500
 );
 
-CELL_LINE:
 while ( my $doc = $scroll->next ) {
   if (defined $$doc{'_source'}{ebiscName}){
     print $$doc{'_source'}{name}, "\t", (split /-/,$$doc{'_source'}{name})[-1], '###', $$doc{'_source'}{ebiscName}, "\t", $$doc{'_source'}{bioSamplesAccession}, "\n";
