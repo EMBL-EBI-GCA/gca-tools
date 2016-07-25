@@ -6,7 +6,6 @@ use warnings;
 use ReseqTrack::Tools::HipSci::ElasticsearchClient;
 use List::Util qw();
 use Data::Compare;
-use Data::Dumper;
 use Getopt::Long;
 
 my $es_host;
@@ -16,9 +15,6 @@ my $es_host;
 );
 
 my $elasticsearchserver = ReseqTrack::Tools::HipSci::ElasticsearchClient->new(host => $es_host);
-
-my $cell_updated = 0;
-my $cell_uptodate = 0;
 
 my $scroll = $elasticsearchserver->call('scroll_helper',
   index       => 'hipsci',
