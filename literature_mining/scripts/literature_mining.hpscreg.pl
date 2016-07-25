@@ -4,7 +4,9 @@ use strict;
 use warnings;
 
 use Getopt::Long;
-use ReseqTrack::EBiSC::hESCreg; #FIXME Makre sure this looks at entirity of hPSCreg not just EBiSC lines
+use ReseqTrack::EBiSC::hESCreg; 
+
+#FIXME Rewrite to read in data from BioSamples so that we know what is allowed to be public
 
 my ($hPSCreg_user, $hPSCreg_pass, $outfile);
 
