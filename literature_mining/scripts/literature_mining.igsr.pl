@@ -6,10 +6,13 @@ use Getopt::Long;
 use Search::Elasticsearch;
 
 my $es_host = 'ves-hx-e4:9200';
+my $outfile;
 
 &GetOptions(
-  'es_host=s' =>\$es_host,
+  "es_host=s" =>\$es_host,
+  "outfile=s" => \$outfile,
 );
+die "missing credentials" if !$es_host || !$outfile;
 
 my $elasticsearchserver = Search::Elasticsearch->new(nodes => "$es_host", client => '1_0::Direct');
 
@@ -19,14 +22,16 @@ my $scroll = $elasticsearchserver->scroll_helper(
   search_type => 'scan',
   size        => 500
 );
+open(my $fh, '>', $outfile) or die "Could not open file '$outfile' $!";
 SAMPLE:
 while ( my $doc = $scroll->next ) {
   next SAMPLE if !$$doc{'_source'}{biosampleId};
   if ($$doc{'_source'}{name} =~ /^NA/){
     my $altname = $$doc{'_source'}{name};
     $altname =~ s/^NA/GM/;
-    print $$doc{'_source'}{name}, "\t", $altname, "\t", $$doc{'_source'}{biosampleId}, "\n";
+    print $fh $$doc{'_source'}{name}, "\t", $altname, "\t", $$doc{'_source'}{biosampleId}, "\n";
   }else{
-    print $$doc{'_source'}{name}, "\t", "\t", $$doc{'_source'}{biosampleId}, "\n";
+    print $fh $$doc{'_source'}{name}, "\t", "\t", $$doc{'_source'}{biosampleId}, "\n";
   }
 }
+close($fh);

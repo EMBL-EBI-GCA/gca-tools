@@ -20,7 +20,6 @@ my $IMS = ReseqTrack::EBiSC::IMS->new(
   pass => $IMS_pass,
 );
 
-my @outlines;
 open(my $fh, '>', $outfile) or die "Could not open file '$outfile' $!";
 foreach my $line (@{$IMS->find_lines->{objects}}) {
   if (defined $$line{validation_status}){
