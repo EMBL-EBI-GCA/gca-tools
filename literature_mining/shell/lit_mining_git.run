@@ -1,0 +1,6 @@
+cd /nfs/production/reseq-info/work/rseqpipe/literature_mining_IDs
+git pull --quiet origin master
+git add .
+curtime=`date`
+git diff-index --quiet HEAD || git commit --quiet -m "Automated literature mining backup @ $curtime"
+git push --quiet origin master
