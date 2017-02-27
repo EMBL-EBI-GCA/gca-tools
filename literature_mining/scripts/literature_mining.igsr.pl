@@ -1,5 +1,9 @@
 #!/usr/bin/env perl
 
+#Creates text file of identifers conforming to convention in ../../README.md
+#Obtains identifiers from IGSR ElasticSeach
+
+
 use strict;
 use warnings;
 use Getopt::Long;
