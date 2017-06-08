@@ -21,7 +21,7 @@ die "missing credentials" if !$es_host || !$outfile;
 my $elasticsearchserver = Search::Elasticsearch->new(nodes => "$es_host", client => '1_0::Direct');
 
 my $scroll = $elasticsearchserver->scroll_helper(
-  index       => 'igsr_beta',
+  index       => 'igsr',
   type        => 'sample',
   search_type => 'scan',
   size        => 500
